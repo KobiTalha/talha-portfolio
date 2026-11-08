@@ -83,7 +83,7 @@ export default function Contact() {
           <button type="submit" className="send" disabled={status === "sending"}>
             {status === "sending" ? "Sending…" : "Send message →"}
           </button>
-          <p className="form-note">
+          <p className="form-note" role="status" aria-live="polite">
             {status === "sent" &&
               "Message received — thanks! I usually reply within a day."}
             {status === "error" && (error || "Could not send. Please email me directly.")}
