@@ -42,3 +42,16 @@ npm run dev        # http://localhost:3000
 ```
 
 Other scripts: `npm run build`, `npm run start`, `npm run lint`, `npm run format`.
+
+## Design notes
+
+Warm-paper editorial layout — oversized Space Grotesk headlines, numbered sections,
+hairline rules, a single international-orange accent, a scrolling disciplines marquee,
+and invert-on-hover project rows. No photos, no stock imagery: type does the talking.
+Fully responsive, keyboard-focus visible, `prefers-reduced-motion` respected.
+
+## Deployment
+
+The Vercel project is git-linked to this repository: every push to `main` triggers a
+production deployment. Security headers (X-Frame-Options, X-Content-Type-Options,
+Referrer-Policy, Permissions-Policy) are set in `vercel.json`.
