@@ -1,15 +1,4 @@
-interface Profile {
-  name: string;
-  shortName: string;
-  alias: string;
-  role: string;
-  location: string;
-  university: string;
-  semester: string;
-  email: string;
-  socials: { label: string; href: string; handle: string }[];
-  focus: string[];
-}
+import type { Profile } from "@/lib/types";
 
 export const profile: Profile = {
   name: "Mohtasim Evne Helal Talha",

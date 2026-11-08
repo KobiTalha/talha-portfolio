@@ -1,12 +1,4 @@
-interface SkillGroup {
-  category: string;
-  items: string[];
-}
-
-interface RecognitionItem {
-  title: string;
-  detail: string;
-}
+import type { RecognitionItem, SkillGroup } from "@/lib/types";
 
 export const skillGroups: SkillGroup[] = [
   {

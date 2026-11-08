@@ -1,10 +1,4 @@
-interface Project {
-  title: string;
-  stack: string[];
-  description: string;
-  featured?: boolean;
-  year: string;
-}
+import type { Project } from "@/lib/types";
 
 export const projects: Project[] = [
   {
