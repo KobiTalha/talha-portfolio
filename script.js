@@ -1,12 +1,3 @@
-// Photo assets (embedded data URIs from images-data.js)
-(function () {
-  var imgs = window.IMAGES || {};
-  var hero = document.getElementById('heroImg');
-  var friends = document.getElementById('friendsImg');
-  if (hero && imgs.hero) hero.src = imgs.hero;
-  if (friends && imgs.friends) friends.src = imgs.friends;
-})();
-
 // Mobile nav
 var burger = document.getElementById('burger');
 var navLinks = document.getElementById('navLinks');
