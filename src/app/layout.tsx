@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import { profile } from "@/data/profile";
 import "./globals.css";
 
@@ -20,7 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body id="top">
+        <Header />
         <main className="wrap">{children}</main>
+        <div className="wrap">
+          <Footer />
+        </div>
       </body>
     </html>
   );
