@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
 
+// Formspree form that delivers submissions to the site owner's inbox.
+// The form ID is a public identifier (it appears in the form endpoint URL),
+// not a credential.
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xnppykjg";
+
 interface ContactPayload {
   name?: unknown;
   email?: unknown;
@@ -11,9 +16,8 @@ function errorResponse(code: string, message: string, status: number) {
 }
 
 /**
- * Contact endpoint. Validates the JSON payload and acknowledges receipt.
- * Delivery is intentionally out of scope for the static deployment; the
- * handler is structured so a mail provider can be dropped in later.
+ * Contact endpoint. Validates the JSON payload, then forwards it to
+ * Formspree, which delivers it to the owner's email inbox.
  */
 export async function POST(request: Request) {
   let payload: ContactPayload;
@@ -37,10 +41,39 @@ export async function POST(request: Request) {
     return errorResponse("message_too_long", "Message must be under 4000 characters.", 422);
   }
 
+  let delivery: Response;
+  try {
+    delivery = await fetch(FORMSPREE_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        name,
+        email,
+        message,
+        _replyto: email,
+        _subject: `Portfolio contact from ${name}`,
+      }),
+    });
+  } catch {
+    return errorResponse(
+      "delivery_failed",
+      "Could not deliver your message right now. Please email me directly.",
+      502,
+    );
+  }
+
+  if (!delivery.ok) {
+    return errorResponse(
+      "delivery_failed",
+      "Could not deliver your message right now. Please email me directly.",
+      502,
+    );
+  }
+
   return NextResponse.json({
     ok: true,
     receivedAt: new Date().toISOString(),
     message:
-      "Thanks for reaching out — your message was received. For anything urgent, email is fastest.",
+      "Thanks for reaching out — your message was delivered to my inbox. I usually reply within a day.",
   });
 }
