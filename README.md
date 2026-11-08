@@ -1,17 +1,18 @@
 # Talha Chowdhury — Portfolio
 
-Personal portfolio website of **Mohtasim Evne Helal Talha** (Talha Chowdhury) — CSE student at AIUB, full-stack developer and game dev from Dhaka, Bangladesh.
+Personal portfolio of **Mohtasim Evne Helal Talha**, full-stack developer and final-year
+CSE student at AIUB, Dhaka.
 
-Plain HTML/CSS/JS, no build step, no images — fully self-contained.
+## Stack
 
-## Run locally
+- **Next.js 15** (App Router) + **React 19**
+- **TypeScript** (strict mode)
+- **Tailwind CSS v4**
+- Deployed on **Vercel**
 
-Open `index.html` in a browser, or serve the folder:
+## Getting started
 
-```sh
-npx serve .
+```bash
+npm install
+npm run dev        # http://localhost:3000
 ```
-
-## Deploy
-
-Connected to Vercel — every push to `main` deploys automatically.
