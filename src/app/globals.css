@@ -527,3 +527,9 @@ a.contact-line:hover strong { color: var(--accent); }
   .status-dot { animation: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
+
+/* Balanced display headings */
+.hero-name,
+.contact-big {
+  text-wrap: balance;
+}
