@@ -1,18 +1,35 @@
 "use client";
 
-import { type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { profile } from "@/data/profile";
 import SectionHeading from "./SectionHeading";
 
+type Status = "idle" | "sending" | "sent" | "error";
+
 export default function Contact() {
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
+  const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState("");
+
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const subject = encodeURIComponent(`Portfolio contact from ${data.get("name") ?? ""}`);
-    const body = encodeURIComponent(
-      `${data.get("message") ?? ""}\n\n— ${data.get("name") ?? ""} (${data.get("email") ?? ""})`,
-    );
-    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
+    const form = event.currentTarget;
+    const data = Object.fromEntries(new FormData(form).entries());
+    setStatus("sending");
+    setError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json?.error?.message ?? "Something went wrong.");
+      setStatus("sent");
+      form.reset();
+    } catch (err) {
+      setStatus("error");
+      setError(err instanceof Error ? err.message : "Something went wrong.");
+    }
   }
 
   return (
@@ -50,7 +67,7 @@ export default function Contact() {
             <strong>Basundhara R/A, Dhaka, Bangladesh</strong>
           </p>
         </div>
-        <form className="contact-form" onSubmit={onSubmit}>
+        <form className="contact-form" onSubmit={onSubmit} noValidate>
           <label>
             <span>Name</span>
             <input name="name" type="text" placeholder="Your name" required />
@@ -63,9 +80,14 @@ export default function Contact() {
             <span>Message</span>
             <textarea name="message" rows={5} placeholder="What are we building?" required />
           </label>
-          <button type="submit" className="send">
-            Send message →
+          <button type="submit" className="send" disabled={status === "sending"}>
+            {status === "sending" ? "Sending…" : "Send message →"}
           </button>
+          <p className="form-note">
+            {status === "sent" &&
+              "Message received — thanks! I usually reply within a day."}
+            {status === "error" && (error || "Could not send. Please email me directly.")}
+          </p>
         </form>
       </div>
     </section>
