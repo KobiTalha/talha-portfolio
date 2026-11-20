@@ -36,7 +36,8 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+/* Native scroll; Lenis adds inertial smoothing at runtime (skipped for
+   reduced motion). No CSS smooth-scroll — it fights the Lenis loop. */
 
 body {
   margin: 0;
@@ -93,6 +94,18 @@ section[id] { scroll-margin-top: 92px; }
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+/* Scroll progress bar (fixed, top) */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--grad-sunset);
+  transform-origin: left;
+  z-index: 100;
 }
 
 /* ---------- Header ---------- */
@@ -176,7 +189,8 @@ section[id] { scroll-margin-top: 92px; }
   overflow: hidden;
   display: flex;
   align-items: center;
-  min-height: 92vh;
+  min-height: 100vh;
+  min-height: 100svh;
   padding: 110px 0 96px;
   border-bottom: 1px solid var(--line);
 }
@@ -204,7 +218,35 @@ section[id] { scroll-margin-top: 92px; }
   );
 }
 
-.hero-inner { position: relative; z-index: 2; width: 100%; }
+.hero-inner { position: relative; z-index: 2; width: 100%; will-change: transform, opacity; }
+
+/* "Scroll for more" cue pinned to the hero's bottom edge */
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--ink-soft);
+  transform: translateX(-50%);
+  text-shadow: 0 2px 12px rgba(11, 6, 20, 0.9);
+}
+.scroll-cue-arrow {
+  font-size: 20px;
+  color: var(--pink);
+  animation: cue-bounce 1.8s ease-in-out infinite;
+}
+@keyframes cue-bounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(7px); opacity: 0.45; }
+}
 
 .status {
   display: inline-flex;
@@ -677,10 +719,10 @@ a.contact-line:hover strong { color: var(--pink); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   .marquee-track { animation: none; }
   .status-dot { animation: none; }
   .skeleton { animation: none; }
+  .scroll-cue-arrow { animation: none; }
 }
 
 /* Balanced display headings */

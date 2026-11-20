@@ -9,7 +9,9 @@ CSE student at AIUB, Dhaka. Live at
 - **Next.js 15** (App Router) + **React 19**
 - **TypeScript** (strict mode)
 - **Tailwind CSS v4** (PostCSS) + hand-written Vice City design system
-- **Framer Motion** — scroll reveals, staggered hero entrance, parallax sunset
+- **Framer Motion** — scroll reveals, staggered hero entrance, scroll-zoom
+  hero, mouse parallax sunset, scroll progress bar
+- **Lenis** — inertial smooth scrolling with smooth anchor navigation
 - **JSON API routes** — `GET /api/projects`, `POST /api/contact`, `GET /api/health`
 - Deployed on **Vercel** (git-linked, auto-deploy on push to `main`)
 
@@ -30,7 +32,8 @@ src/
       contact/        POST /api/contact — validated contact endpoint
       health/         GET  /api/health — uptime check
   components/         Header, Footer, Hero, SunsetArt (hand-drawn SVG sunset),
-                      Marquee, section components, Reveal (scroll-in animation),
+                      Marquee, SmoothScroll (Lenis), ScrollProgress, WordReveal,
+                      section components, Reveal (scroll-in animation),
                       SectionHeading
   data/               Typed content: profile, projects, skills, recognition
   lib/types.ts        Shared TypeScript interfaces
@@ -49,12 +52,15 @@ Other scripts: `npm run build`, `npm run start`, `npm run lint`, `npm run format
 
 GTA VI / Vice City theme — Leonida-night background, neon sunset gradients
 (hot pink, orange, purple), oversized Anton poster headlines, a hand-drawn SVG
-sunset with slatted sun and palm silhouettes behind the hero, a gradient
-disciplines marquee, glass project cards with neon hover glow, and
-Framer Motion scroll reveals with parallax. No photos, no stock imagery, no
-Rockstar logos or copyrighted artwork: gradients and original SVG do the
-talking. Fully responsive, keyboard-focus visible, `prefers-reduced-motion`
-respected.
+sunset with slatted sun and palm silhouettes behind a full-screen hero, a
+gradient disciplines marquee, glass project cards with neon hover glow, and
+Rockstar-style motion throughout: Lenis inertial smooth scrolling, a
+scroll-zoom hero (the sunset zooms in as the content lifts away), mouse
+parallax on the sunset layers, scroll-triggered reveals, word-by-word text
+reveals, animated section headings and a gradient scroll-progress bar. No
+photos, no stock imagery, no Rockstar logos or copyrighted artwork: gradients
+and original SVG do the talking. Fully responsive, keyboard-focus visible,
+`prefers-reduced-motion` respected (all motion is skipped).
 
 ## Deployment
 

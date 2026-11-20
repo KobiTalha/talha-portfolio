@@ -5,6 +5,10 @@ import { motion, useReducedMotion, useTransform, type MotionValue } from "framer
 interface SunsetArtProps {
   /** Scroll progress of the hero section (0 at top, 1 when scrolled past). */
   progress: MotionValue<number>;
+  /** Scroll-linked zoom for the whole backdrop (Rockstar-style hero zoom). */
+  scale: MotionValue<number>;
+  /** Spring-smoothed pointer position over the hero, -0.5..0.5 on each axis. */
+  mouse: { x: MotionValue<number>; y: MotionValue<number> };
 }
 
 const stars: Array<[number, number, number, number]> = [
@@ -19,16 +23,22 @@ const stars: Array<[number, number, number, number]> = [
 /**
  * Original Vice City–inspired sunset: gradient sky, slatted synthwave sun,
  * neon ocean reflection and palm silhouettes — all hand-drawn SVG, no photos
- * and no copyrighted artwork. The sun and palms drift at different rates as
- * the hero scrolls away (parallax), disabled for reduced motion.
+ * and no copyrighted artwork. Layers drift at different rates on scroll
+ * (parallax) and with the pointer (mouse parallax), and the whole backdrop
+ * zooms as the hero scrolls away. All motion is disabled for reduced motion.
  */
-export default function SunsetArt({ progress }: SunsetArtProps) {
+export default function SunsetArt({ progress, scale, mouse }: SunsetArtProps) {
   const reduce = useReducedMotion();
+  const zero = () => 0;
   const sunY = useTransform(progress, [0, 1], reduce ? [0, 0] : [0, 90]);
   const palmY = useTransform(progress, [0, 1], reduce ? [0, 0] : [0, 42]);
+  const sunX = useTransform(mouse.x, reduce ? zero : (v) => v * 16);
+  const palmX = useTransform(mouse.x, reduce ? zero : (v) => v * 30);
+  const starX = useTransform(mouse.x, reduce ? zero : (v) => v * 8);
+  const starY = useTransform(mouse.y, reduce ? zero : (v) => v * 6);
 
   return (
-    <div className="sunset" aria-hidden="true">
+    <motion.div className="sunset" style={{ scale }} aria-hidden="true">
       <svg viewBox="0 0 1440 620" preserveAspectRatio="xMidYMax slice">
         <defs>
           <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
@@ -79,13 +89,15 @@ export default function SunsetArt({ progress }: SunsetArtProps) {
         {/* Sky */}
         <rect x="0" y="0" width="1440" height="620" fill="url(#sky)" />
 
-        {/* Stars */}
-        {stars.map(([x, y, r, o], i) => (
-          <circle key={i} cx={x} cy={y} r={r} fill="#ffffff" opacity={o} />
-        ))}
+        {/* Stars (mouse-parallax layer) */}
+        <motion.g style={{ x: starX, y: starY }}>
+          {stars.map(([x, y, r, o], i) => (
+            <circle key={i} cx={x} cy={y} r={r} fill="#ffffff" opacity={o} />
+          ))}
+        </motion.g>
 
-        {/* Sun + glow (parallax layer) */}
-        <motion.g style={{ y: sunY }}>
+        {/* Sun + glow (scroll + mouse parallax layer) */}
+        <motion.g style={{ y: sunY, x: sunX }}>
           <circle cx="720" cy="372" r="250" fill="url(#sunGlow)" />
           <circle cx="720" cy="372" r="168" fill="url(#sun)" mask="url(#sunSlats)" />
         </motion.g>
@@ -99,8 +111,8 @@ export default function SunsetArt({ progress }: SunsetArtProps) {
         <rect x="660" y="522" width="160" height="2" fill="#ffb347" opacity="0.3" />
         <rect x="380" y="560" width="680" height="1.5" fill="#a855f7" opacity="0.22" />
 
-        {/* Palm silhouettes (parallax layer) */}
-        <motion.g style={{ y: palmY }} fill="#0d0518">
+        {/* Palm silhouettes (scroll + mouse parallax layer) */}
+        <motion.g style={{ y: palmY, x: palmX }} fill="#0d0518">
           <use href="#palm" transform="translate(-24, 296) scale(1.18)" />
           <use href="#palm" transform="translate(1296, 318) scale(-0.96, 0.96)" />
           <use href="#palm" transform="translate(238, 372) scale(0.58)" />
@@ -108,6 +120,6 @@ export default function SunsetArt({ progress }: SunsetArtProps) {
         </motion.g>
       </svg>
       <div className="sunset-scrim" />
-    </div>
+    </motion.div>
   );
 }

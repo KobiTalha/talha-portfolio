@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Anton, Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import ScrollProgress from "@/components/ScrollProgress";
+import SmoothScroll from "@/components/SmoothScroll";
 import { profile } from "@/data/profile";
 import "./globals.css";
 
@@ -90,6 +92,8 @@ export default function RootLayout({
       className={`${display.variable} ${poster.variable} ${body.variable} ${mono.variable}`}
     >
       <body id="top">
+        <SmoothScroll />
+        <ScrollProgress />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
