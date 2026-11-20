@@ -50,7 +50,7 @@ export const recognition: RecognitionItem[] = [
 export const beyondCode: { title: string; text: string }[] = [
   {
     title: "Gaming",
-    text: "Self-described game freak. GTA V and GTA Online (counting down to GTA VI), Assassin's Creed — Syndicate finished, Mirage in progress — Call of Duty, Clash of Clans at Town Hall 17, Genshin Impact, Zenless Zone Zero and Cyberpunk 2077.",
+    text: "Self-described game freak. GTA V and GTA Online, GTA VI, Assassin's Creed — Syndicate finished, Mirage in progress — Call of Duty, Clash of Clans at Town Hall 17, Genshin Impact, Zenless Zone Zero and Cyberpunk 2077.",
   },
   {
     title: "#KobiTalha",

@@ -2,6 +2,14 @@ import type { Project } from "@/lib/types";
 
 export const projects: Project[] = [
   {
+    title: "EduSphere — E-Learning Platform",
+    stack: ["NestJS", "TypeORM", "PostgreSQL", "JWT"],
+    description:
+      "Full e-learning platform built with a four-person team for Advanced Web Technology (CSC4161): 65 REST endpoints across 16 modules, JWT authentication with role-based access for Admin, Instructor, Student and Teaching Assistant, enrolment guarded by database transactions, and ten bonus features including audit logging, Swagger UI and a mailer. I owned the admin module and the shared infrastructure — middleware, guards, interceptors and audit logging.",
+    featured: true,
+    year: "2026",
+  },
+  {
     title: "Car Management System",
     stack: ["NestJS", "PostgreSQL", "Docker", "GitHub Actions"],
     description:

@@ -4,7 +4,7 @@ import SectionHeading from "./SectionHeading";
 
 export default function About() {
   return (
-    <section id="about" className="section">
+    <section id="about" className="section wrap">
       <SectionHeading index="01" title="About" />
       <Reveal>
         <p className="lead">{aboutParagraphs[0]}</p>

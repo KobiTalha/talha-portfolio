@@ -33,12 +33,12 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="section contact">
+    <section id="contact" className="section contact wrap">
       <SectionHeading index="06" title="Contact" />
       <h2 className="contact-big">
         Let&rsquo;s build something
         <br />
-        worth shipping.
+        <span className="grad-text">worth shipping.</span>
       </h2>
       <p className="body-text contact-lede">
         Open to internships, collaborations and interesting projects. The fastest way to

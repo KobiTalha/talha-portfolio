@@ -4,7 +4,7 @@ import SectionHeading from "./SectionHeading";
 
 export default function Recognition() {
   return (
-    <section id="recognition" className="section">
+    <section id="recognition" className="section wrap">
       <SectionHeading index="04" title="Recognition" />
       <Reveal>
         <div>

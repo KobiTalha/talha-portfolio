@@ -8,7 +8,8 @@ CSE student at AIUB, Dhaka. Live at
 
 - **Next.js 15** (App Router) + **React 19**
 - **TypeScript** (strict mode)
-- **Tailwind CSS v4** (PostCSS) + hand-written editorial design system
+- **Tailwind CSS v4** (PostCSS) + hand-written Vice City design system
+- **Framer Motion** — scroll reveals, staggered hero entrance, parallax sunset
 - **JSON API routes** — `GET /api/projects`, `POST /api/contact`, `GET /api/health`
 - Deployed on **Vercel** (git-linked, auto-deploy on push to `main`)
 
@@ -28,8 +29,9 @@ src/
       projects/       GET  /api/projects — project index as JSON
       contact/        POST /api/contact — validated contact endpoint
       health/         GET  /api/health — uptime check
-  components/         Header, Footer, Hero, Marquee, section components,
-                      Reveal (scroll-in animation), SectionHeading
+  components/         Header, Footer, Hero, SunsetArt (hand-drawn SVG sunset),
+                      Marquee, section components, Reveal (scroll-in animation),
+                      SectionHeading
   data/               Typed content: profile, projects, skills, recognition
   lib/types.ts        Shared TypeScript interfaces
 ```
@@ -45,10 +47,14 @@ Other scripts: `npm run build`, `npm run start`, `npm run lint`, `npm run format
 
 ## Design notes
 
-Warm-paper editorial layout — oversized Space Grotesk headlines, numbered sections,
-hairline rules, a single international-orange accent, a scrolling disciplines marquee,
-and invert-on-hover project rows. No photos, no stock imagery: type does the talking.
-Fully responsive, keyboard-focus visible, `prefers-reduced-motion` respected.
+GTA VI / Vice City theme — Leonida-night background, neon sunset gradients
+(hot pink, orange, purple), oversized Anton poster headlines, a hand-drawn SVG
+sunset with slatted sun and palm silhouettes behind the hero, a gradient
+disciplines marquee, glass project cards with neon hover glow, and
+Framer Motion scroll reveals with parallax. No photos, no stock imagery, no
+Rockstar logos or copyrighted artwork: gradients and original SVG do the
+talking. Fully responsive, keyboard-focus visible, `prefers-reduced-motion`
+respected.
 
 ## Deployment
 

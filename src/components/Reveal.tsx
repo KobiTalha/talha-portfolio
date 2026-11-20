@@ -1,37 +1,35 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import type { ReactNode } from "react";
 
 interface RevealProps {
   children: ReactNode;
   className?: string;
+  /** Stagger delay in seconds, for sequencing sibling reveals. */
+  delay?: number;
 }
 
-/** Fades content in the first time it enters the viewport. */
-export default function Reveal({ children, className = "" }: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
+/**
+ * Butter-smooth scroll reveal: fades and rises the first time the content
+ * enters the viewport. Renders statically when the user prefers reduced motion.
+ */
+export default function Reveal({ children, className = "", delay = 0 }: RevealProps) {
+  const reduce = useReducedMotion();
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.08 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  if (reduce) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
-    <div ref={ref} className={`reveal ${className}`}>
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay }}
+    >
       {children}
-    </div>
+    </motion.div>
   );
 }

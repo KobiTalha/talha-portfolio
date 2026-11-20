@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <section className="section not-found">
+    <section className="section wrap not-found">
       <p className="not-found-code">404</p>
       <h1 className="not-found-title">This page took a wrong turn in Dhaka traffic.</h1>
       <p className="body-text">

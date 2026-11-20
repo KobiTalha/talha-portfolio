@@ -4,13 +4,12 @@ import SectionHeading from "./SectionHeading";
 
 export default function Projects() {
   return (
-    <section id="work" className="section">
+    <section id="work" className="section wrap">
       <SectionHeading index="02" title="Selected work" />
-      <Reveal>
-        <div className="projects">
-          {projects.map((project, i) => (
+      <div className="projects">
+        {projects.map((project, i) => (
+          <Reveal key={project.title} delay={Math.min(i * 0.06, 0.3)}>
             <article
-              key={project.title}
               className={project.featured ? "project project-featured" : "project"}
             >
               <span className="project-index">{String(i + 1).padStart(2, "0")}</span>
@@ -23,9 +22,9 @@ export default function Projects() {
                 <p className="project-stack">{project.stack.join(" · ")}</p>
               </div>
             </article>
-          ))}
-        </div>
-      </Reveal>
+          </Reveal>
+        ))}
+      </div>
     </section>
   );
 }

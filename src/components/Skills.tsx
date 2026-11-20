@@ -4,14 +4,20 @@ import SectionHeading from "./SectionHeading";
 
 export default function Skills() {
   return (
-    <section id="skills" className="section">
+    <section id="skills" className="section wrap">
       <SectionHeading index="03" title="Skills" />
       <Reveal>
         <div>
           {skillGroups.map((group) => (
             <div key={group.category} className="skill-row">
               <span className="skill-label">{group.category}</span>
-              <p>{group.items.join(", ")}</p>
+              <ul className="skill-chips">
+                {group.items.map((item) => (
+                  <li key={item} className="chip">
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>

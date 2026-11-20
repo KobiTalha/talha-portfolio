@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Anton, Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { profile } from "@/data/profile";
@@ -8,6 +8,14 @@ import "./globals.css";
 const display = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-display",
+  display: "swap",
+  preload: true,
+});
+
+const poster = Anton({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-poster",
   display: "swap",
   preload: true,
 });
@@ -52,6 +60,10 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#0b0614",
+};
+
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -73,14 +85,17 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
+    <html
+      lang="en"
+      className={`${display.variable} ${poster.variable} ${body.variable} ${mono.variable}`}
+    >
       <body id="top">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
         <Header />
-        <main className="wrap">{children}</main>
+        <main>{children}</main>
         <div className="wrap">
           <Footer />
         </div>

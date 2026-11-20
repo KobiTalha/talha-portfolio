@@ -4,7 +4,7 @@ import SectionHeading from "./SectionHeading";
 
 export default function BeyondCode() {
   return (
-    <section className="section">
+    <section className="section wrap">
       <SectionHeading index="05" title="Beyond code" />
       <Reveal>
         <div className="beyond-grid">
